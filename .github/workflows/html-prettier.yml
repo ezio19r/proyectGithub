@@ -1,0 +1,30 @@
+name: HTML Lint and Indentation Check
+
+on:
+  pull_request:
+    branches:
+      - main
+      - development
+
+jobs:
+  html-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Configurar el entorno
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Instalar herramientas necesarias para la validación
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      # Instalar prettier para verificar la indentación
+      - name: Install Prettier
+        run: npm install -g prettier
+
+      # Verificar la indentación y formato de los archivos HTML
+      - name: Check HTML Indentation
+        run: prettier --check "**/*.html"
